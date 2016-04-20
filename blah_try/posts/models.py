@@ -2,6 +2,8 @@ from django.db import models
 
 # Create your models here.
 
+# Models are capitalized and singular
+# Models will inherit from the django models you imported on the top
 class Post(models.Model):
 	title = models.CharField(max_length = 120)
 	content = models.TextField()

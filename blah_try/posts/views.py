@@ -1,4 +1,6 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django import forms
+from .models import Post
 
 # Create your views here.
 def index(request):
@@ -22,4 +24,4 @@ def posts(request):
 		return render(request, 'posts.html', {})
 
 def create(request):
-	return redirect('posts:index')
+	return render(request, 'create.html', {})
