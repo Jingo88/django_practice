@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<form action="{% url 'posts:create' %}">
+			<input type="submit" value="Add a new entry">
+	</form>
+	
+
+	{% for whiskey in whiskey_list %}
+		<ul>
+			<h3><a href="{{whiskey.id}}">{{whiskey.brand}}</a></h3>
+			<li>{{whiskey.brand_type}}</li>	
+			<li>{{whiskey.price}}</li>
+			<p>{{whiskey.description}}</p>
+		</ul>
+
+	{% endfor %}
+
+
+{% endblock content %}

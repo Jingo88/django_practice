@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+	{% block content %}
+
+		<form method="POST" action="">{% csrf_token %}
+
+			<h4>{{ whiskey.brand.label_tag }}</h4>
+			{{ whiskey.brand }}
+
+			<h4>{{ whiskey.brand_type.label_tag }}</h4>
+			{{ whiskey.brand_type }}
+
+			<h4>{{ whiskey.price.label_tag }}</h4>
+			{{ whiskey.price }}
+
+			<h4>{{ whiskey.description.label_tag }}</h4>
+			{{ whiskey.description }}
+
+
+			<input type="submit" value="Update This Whiskey">
+		</form>
+	
+	{% endblock content %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+	
+	{% block content %}
+	
+		<form action="" method="POST">{% csrf_token %}
+			{{create}}
+
+			<input type="submit" value="Create New Whiskey">
+		</form>
+
+	{% endblock content %}
