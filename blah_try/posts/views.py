@@ -1,27 +1,43 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django import forms
 from .models import Post
+from django.views.generic import View
 
-# Create your views here.
-def index(request):
-	if request.GET.get("post"):
+
+
+# Time to make class based views.
+
+class Posts_List(View):
+	def get(self, request):
+		all_posts = Post.objects.all()
 		context = {
-			"post": request.GET.get("post")
+			"all_posts": all_posts,
 		}
-	else:
-		context = {
-			"post": "No Post Yet!!!!"
-		}
-	return render(request, 'index.html', context)
+		return render(request, "posts/list.html", context)
 
-def posts(request):
 
-	if request.method == "POST":
-		post = request.POST["post-data"]
-		print(post)
-		return redirect("/?post={}".format(post))
-	if request.method == "GET":
-		return render(request, 'posts.html', {})
 
-def create(request):
-	return render(request, 'create.html', {})
+
+# # Create your views here.
+# def index(request):
+# 	if request.GET.get("post"):
+# 		context = {
+# 			"post": request.GET.get("post")
+# 		}
+# 	else:
+# 		context = {
+# 			"post": "No Post Yet!!!!"
+# 		}
+# 	return render(request, 'index.html', context)
+
+# def posts(request):
+
+# 	if request.method == "POST":
+# 		post = request.POST["post-data"]
+# 		print(post)
+# 		return redirect("/?post={}".format(post))
+# 	if request.method == "GET":
+# 		return render(request, 'posts.html', {})
+
+# def create(request):
+# 	return render(request, 'create.html', {})

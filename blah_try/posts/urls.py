@@ -1,8 +1,8 @@
 from django.conf.urls import url, include
-from . import views
+from .views import Posts_List
 
 urlpatterns = [
-	url(r'^create$', views.create, name='create'),
-	url(r'^$', views.index, name='index'),
+	# url(r'^create$', views.create, name='create'),
+	url(r'^$', Posts_List.as_view(), name='list'),
 ]
 
