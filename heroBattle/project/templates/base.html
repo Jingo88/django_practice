@@ -1,15 +1,26 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'style.css' %}">
 	<title>BASENESS</title>
+	<script type='javascript' src="{% static 'bootstrap/bootstrap.min.js'%}"></script>
+	<script type='javascript' src="{% static 'main.js'%}"></script>
 </head>
 <body>
 	<h1>We are in the base html</h1>
 
 	<div class='container'>
 		{% block content %}
-		
+
+			<a href="{% url 'heroes:login' %}">
+				<h3>CLICK HERE TO LOGIN</h3>
+			</a>
+
+				
 		{% endblock content %}
 	</div>
 
