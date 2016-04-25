@@ -4,15 +4,24 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'materialize/materialize.min.css' %}">
 	<link rel="stylesheet" href="{% static 'style.css' %}">
 	<title>BASENESS</title>
 	<script src="{% static 'jquery-2.2.3.min.js' %}"></script>
-	<script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
+	<script src="{% static 'materialize/materialize.min.js' %}"></script>
 	<script src="{% static 'main.js' %}"></script>
 </head>
 <body>
-	<h1>We are in the base html</h1>
+	<nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Heroes</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="{% url 'heroes:login' %}">Login</a></li>
+        <li><a href="badges.html">Hero List</a></li>
+        <li><a href="collapsible.html">Something Else</a></li>
+      </ul>
+    </div>
+  </nav>
 
 	<div class='container'>
 		{% block content %}
