@@ -6,6 +6,7 @@ class Leader(models.Model):
 	user = models.OneToOneField(User)
 	first_name = models.CharField(max_length=40)
 	last_name = models.CharField(max_length=40)
+	bio = models.TextField(max_length=500)
 
 # class Hero(models.Models):
 # 	blah = models.ManytoMany()

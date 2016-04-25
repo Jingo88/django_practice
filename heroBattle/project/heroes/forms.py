@@ -1,6 +1,16 @@
 from django import forms
-# from .models import Leader
+from .models import Leader
 
+class LeaderSignUp(forms.ModelForm):
+	class Meta:
+		model = Leader
+		fields = [
+			"user.username",
+			"user.password",
+			"first_name",
+			"last_name",
+			"bio",
+		]
 
 
 
