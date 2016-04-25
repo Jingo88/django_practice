@@ -1,14 +1,28 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse
 from .models import Leader
 from django.views.generic import View
 from django import forms
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
-class IndexView(View):
-	def get(self, request):
+def index(request):
+	# user == "AnonymousUser" unless they already logged in. Then it will be the username
+	user = request.user
+	print(user)
+
+	if user.is_authenticated():
+		return render(request, 'heroes/leader.html', {})
+	else:
 		return render(request, 'base.html', {})
+
+def logout_view(request):
+	logout(request)
+	return redirect('heroes:index')
+
+# class IndexView(View):
+# 	def get(self, request):
+# 		return render(request, 'base.html', {})
 
 class Leader_Login(View):
 
@@ -29,10 +43,11 @@ class Leader_Login(View):
 							password=password)
 
 		if user:
-			login(request, user)
-			return HttpResponse("Hello World")
-		else:
-			return HttpResponse("You're not allowed here")
+			if user.is_active:
+				login(request, user)
+				return redirect('heroes:index')
+			else:
+				return HttpResponse("You're not allowed here")
 
 
 
