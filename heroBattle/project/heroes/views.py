@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, HttpResponse
 from .models import Leader
+from django.contrib.auth.models import User
 from django.views.generic import View
 from django import forms
 from django.contrib.auth import authenticate, login, logout
 from .forms import LeaderSignUp, UserSignUp
+from django.contrib.auth.hashers import make_password
 
 # Create your views here.
 
@@ -51,9 +53,26 @@ class SignUp_View(View):
 			leader_last_name = leader_submit_form.cleaned_data['last_name']
 			leader_bio = leader_submit_form.cleaned_data['bio']
 
-			# We have to save the user instance before we save the leader because the leader user attribute 
+			username = user_submit_form.cleaned_data['username']
+			password = user_submit_form.cleaned_data['password']
+
 			user_instance = user_submit_form.save(commit=False)
+			user_instance.password = make_password(user_submit_form.cleaned_data['password'])
 			user_instance.save()
+
+
+
+			# user_instance = User(username=username, password=password)
+			# We have to save the user instance before we save the leader because the leader user attribute 
+			# user_instance = user_submit_form.save(commit=False)
+
+			print(user_submit_form)
+			print(user_instance.password)
+
+			# user_instance.save()
+
+			x = User.objects.get(username=user_instance.username)
+			print(x)
 
 			# create the leader instance and save it
 			leader_instance = Leader(
@@ -78,20 +97,22 @@ class Leader_Login(View):
 
 # Django auth comes with the authenticate and login methods
 	def post(self, request):
-		username = request.POST.get('username')
-		password = request.POST.get('password')
+		# username = request.POST.get('username')
+		# password = request.POST.get('password')
+		username = request.POST['username']
+		password = request.POST['password']
 		print(username)
 		print(password)
 
-		user = authenticate(username=username,
-							password=password)
+		user = authenticate(username=username, password=password)
 
+		print(user)
 		if user:
 			if user.is_active:
 				login(request, user)
 				return redirect('heroes:index')
-			else:
-				return HttpResponse("You're not allowed here")
+		else:
+			return HttpResponse("You're not allowed here")
 
 
 

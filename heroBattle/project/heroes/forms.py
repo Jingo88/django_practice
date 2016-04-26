@@ -1,9 +1,12 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Leader
+from django.core.validators import RegexValidator
 
 class UserSignUp(forms.ModelForm):
-
+	alphanumeric = RegexValidator(r'^[0-9a-zA-Z_]*$',
+		'This value may contain only letters, '
+		'numbers and _ characters.')
 	# Had to set up this empty string so that bullshit default helptext doesn't appear. Thanks Django
 	username = forms.CharField(widget=forms.TextInput(
 		),
@@ -14,6 +17,7 @@ class UserSignUp(forms.ModelForm):
 	password = forms.CharField(widget=forms.PasswordInput(),
 		required = True,
 		min_length = 6,
+		validators=[alphanumeric]
 	)
 	# Jeff's Password form in jeffit
     # password = forms.CharField(widget=forms.PasswordInput(
