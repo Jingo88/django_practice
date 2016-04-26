@@ -8,6 +8,3 @@ class Leader(models.Model):
 	last_name = models.CharField(max_length=40)
 	bio = models.TextField(max_length=500, default='blank')
 
-
-# class Hero(models.Models):
-# 	blah = models.ManytoMany()

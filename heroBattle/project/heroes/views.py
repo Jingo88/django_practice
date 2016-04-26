@@ -7,7 +7,6 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import LeaderSignUp, UserSignUp
 from django.contrib.auth.hashers import make_password
 
-# Create your views here.
 
 def index_view(request):
 	# user == "AnonymousUser" unless they already logged in. Then it will be the username
@@ -16,6 +15,9 @@ def index_view(request):
 
 	if user.is_authenticated():
 		print(request.session.items())
+		profile = User.objects.get(username=user)
+		# bio = Leader.objects.get()
+		print(profile)
 		return render(request, 'heroes/leader.html', {})
 	else:
 		return render(request, 'base.html', {})
@@ -41,6 +43,7 @@ class SignUp_View(View):
 		return render(request, 'heroes/signup.html', context)
 
 	def post(self,request,*args, **kwargs):
+
 		# Take the form information
 		user_submit_form = self.user_form(request.POST or None)
 		leader_submit_form = self.leader_form(request.POST or None)
@@ -53,26 +56,14 @@ class SignUp_View(View):
 			leader_last_name = leader_submit_form.cleaned_data['last_name']
 			leader_bio = leader_submit_form.cleaned_data['bio']
 
-			username = user_submit_form.cleaned_data['username']
-			password = user_submit_form.cleaned_data['password']
-
+			# target the user instance from the form submit
 			user_instance = user_submit_form.save(commit=False)
+
+			# hash the password being generated
 			user_instance.password = make_password(user_submit_form.cleaned_data['password'])
+
+			# save the user. Must do this before we can attach the leader
 			user_instance.save()
-
-
-
-			# user_instance = User(username=username, password=password)
-			# We have to save the user instance before we save the leader because the leader user attribute 
-			# user_instance = user_submit_form.save(commit=False)
-
-			print(user_submit_form)
-			print(user_instance.password)
-
-			# user_instance.save()
-
-			x = User.objects.get(username=user_instance.username)
-			print(x)
 
 			# create the leader instance and save it
 			leader_instance = Leader(
@@ -82,8 +73,10 @@ class SignUp_View(View):
 				bio = leader_bio
 				)
 
+			# save leader
 			leader_instance.save()
-			# if all this saves properly we redirect to the home page
+
+			# if all this saves properly we redirect to the home page so they could log in
 			return redirect('heroes:index')
 
 
@@ -104,6 +97,7 @@ class Leader_Login(View):
 		print(username)
 		print(password)
 
+		# authenticates returns True or None
 		user = authenticate(username=username, password=password)
 
 		print(user)
@@ -111,8 +105,10 @@ class Leader_Login(View):
 			if user.is_active:
 				login(request, user)
 				return redirect('heroes:index')
-		else:
-			return HttpResponse("You're not allowed here")
+
+		# decide on what you want to do if the log in fails
+		elif user == None:
+			return HttpResponse("The Authentication method did not pass")
 
 
 
