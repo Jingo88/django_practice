@@ -14,10 +14,16 @@ def index_view(request):
 	print(user)
 
 	if user.is_authenticated():
+
+# Add mustache functionality. 
+# Will use mustache when we have a list of Superheros
+# have to create superhero model and data later
 		print(request.session.items())
 		profile = User.objects.get(username=user)
-		# bio = Leader.objects.get()
+		leader = Leader.objects.get(user = profile)
 		print(profile)
+		print(leader)
+		print(leader.bio)
 		return render(request, 'heroes/leader.html', {})
 	else:
 		return render(request, 'base.html', {})
