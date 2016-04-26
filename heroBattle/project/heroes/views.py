@@ -3,7 +3,7 @@ from .models import Leader
 from django.views.generic import View
 from django import forms
 from django.contrib.auth import authenticate, login, logout
-from .forms import LeaderSignUp
+from .forms import LeaderSignUp, UserSignUp
 
 # Create your views here.
 
@@ -22,15 +22,18 @@ def logout_view(request):
 	return redirect('heroes:index')
 
 class SignUp_View(View):
-	form = LeaderSignUp
+	user_form = UserSignUp
+	leader_form = LeaderSignUp
 	initial = {'key': 'value'}
 
 	def get(self, request, *args, **kwargs):
-		signup_form = self.form(initial=self.initial)
+		l_signup_form = self.leader_form(initial=self.initial)
+		u_signup_form = self.user_form(initial=self.initial)
 		context = {
-			"signup":signup_form
+			"leader": l_signup_form,
+			"user" : u_signup_form
 		}
-		return render(request, 'heroes.signup.html', context)
+		return render(request, 'heroes/signup.html', context)
 
 
 class Leader_Login(View):
