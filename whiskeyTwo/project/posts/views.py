@@ -55,6 +55,8 @@ class Posts_Create(View):
 		if create_form.is_valid():
 			instance = create_form.save(commit=False)
 			instance.save()
+			print('THIS IS THE INSTANCE')
+			print(instance)
 			return redirect(instance)
 		context = {
 			"create":create_form,

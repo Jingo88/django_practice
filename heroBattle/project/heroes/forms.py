@@ -26,9 +26,6 @@ class UserSignUp(forms.ModelForm):
 
 	class Meta:
 		model = User
-		# help_texts = {
-		# 	"password": "blah blah blah",
-		# }
 		fields = [
 			"username",
 			"password",
