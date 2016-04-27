@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<h1> WE ARE IN INDEX </h1>
+	
+	<form action="" class='movie_form'>
+		<input type="text" name='search_value' placeholder="Enter Movie Title">
+		<input type="submit" name='search_button' value="Find Movie">
+	</form>
+	
+	<div id="blah"></div>
+
+	{%include 'movies/search_list.html' %}
+
+{% endblock content %}

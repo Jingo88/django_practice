@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse
-from .models import Leader
+from .models import Leader, Power
 from django.contrib.auth.models import User
 from django.views.generic import View
 from django import forms
@@ -18,9 +18,11 @@ def index_view(request):
 		# grab the User object and use it to grab the Leader object
 		profile = User.objects.get(username=user)
 		leader = Leader.objects.get(user = profile)
+		power = Power.objects.all()
 		context = {
 			"profile" : profile,
-			"leader": leader
+			"leader": leader,
+			"power": power
 		}		
 		return render(request, 'heroes/leader.html', context)
 	else:
@@ -84,6 +86,7 @@ class SignUp_View(View):
 			return redirect('heroes:index')
 
 		else: 
+			# need to fix what happens when they enter bad information
 			return HttpResponse("The information you entered was not valid")
 
 class Leader_Login(View):

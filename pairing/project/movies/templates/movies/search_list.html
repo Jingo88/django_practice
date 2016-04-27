@@ -1,0 +1,30 @@
+{% verbatim %}
+	
+	<script id="list" type="x-tmpl-mustache">
+
+	<h3>MOVIES</h3>
+	
+	<ul>
+	{{#Search}}
+
+	<img src="{{Poster}}">
+		<li>
+			Title: {{Title}}
+		</li>
+		<li>
+			Year: {{Year}}
+		</li>
+		<li>
+			Type: {{Type}}
+		</li>
+
+	{{/Search}}
+	</ul>	
+
+
+
+	<h4>{{Response}}</h4>
+
+	</script>
+
+{% endverbatim %}

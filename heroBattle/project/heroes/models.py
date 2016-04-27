@@ -9,6 +9,9 @@ class Leader(models.Model):
 	bio = models.TextField(max_length=500, default='blank')
 	hero_name = models.CharField(max_length=40, default = "blank")
 	age = models.PositiveSmallIntegerField(default = 0)
+
+	def __str__(self):
+		return self.user.username
 	
 
 class Power(models.Model):
@@ -17,4 +20,5 @@ class Power(models.Model):
 	description = models.TextField(max_length=500, default='blank')
 	leader = models.ManyToManyField(Leader)
 
-
+	def __str__(self):
+		return self.name
