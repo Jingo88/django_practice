@@ -7,4 +7,14 @@ class Leader(models.Model):
 	first_name = models.CharField(max_length=40)
 	last_name = models.CharField(max_length=40)
 	bio = models.TextField(max_length=500, default='blank')
+	hero_name = models.CharField(max_length=40, default = "blank")
+	age = models.PositiveSmallIntegerField(default = 0)
+	
+
+class Power(models.Model):
+	name = models.CharField(max_length=40)
+	method = models.CharField(max_length=40)
+	description = models.TextField(max_length=500, default='blank')
+	leader = models.ManyToManyField(Leader)
+
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from heroes.models import Leader
+from heroes.models import Leader, Power
 
 # Register your models here.
 
@@ -10,5 +10,14 @@ class LeaderModelAdmin(admin.ModelAdmin):
 	class Meta:
 		model = Leader
 
+
+class PowerModelAdmin(admin.ModelAdmin):
+	list_display = ["name", "method"]
+	search_fields = ["name", "method"]
+
+	class Meta:
+		model = Power
+
 admin.site.register(Leader, LeaderModelAdmin)
+admin.site.register(Power, PowerModelAdmin)
 

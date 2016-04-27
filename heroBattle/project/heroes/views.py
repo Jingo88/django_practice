@@ -15,16 +15,14 @@ def index_view(request):
 
 	if user.is_authenticated():
 
-# Add mustache functionality. 
-# Will use mustache when we have a list of Superheros
-# have to create superhero model and data later
-		print(request.session.items())
+		# grab the User object and use it to grab the Leader object
 		profile = User.objects.get(username=user)
 		leader = Leader.objects.get(user = profile)
-		print(profile)
-		print(leader)
-		print(leader.bio)
-		return render(request, 'heroes/leader.html', {})
+		context = {
+			"profile" : profile,
+			"leader": leader
+		}		
+		return render(request, 'heroes/leader.html', context)
 	else:
 		return render(request, 'base.html', {})
 
@@ -85,6 +83,8 @@ class SignUp_View(View):
 			# if all this saves properly we redirect to the home page so they could log in
 			return redirect('heroes:index')
 
+		else: 
+			return HttpResponse("The information you entered was not valid")
 
 class Leader_Login(View):
 
