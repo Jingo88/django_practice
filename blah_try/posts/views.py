@@ -18,6 +18,13 @@ class Posts_List(View):
 
 
 
+def blah(self, request):
+
+	blah = Post.objects.all()
+
+	return redirect(posts:list)
+
+
 # # Create your views here.
 # def index(request):
 # 	if request.GET.get("post"):

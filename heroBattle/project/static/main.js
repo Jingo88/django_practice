@@ -1,1 +1,3 @@
-console.log("we are hooked up")
+$(document).ready(function(){
+	console.log("We are connected!")
+})
